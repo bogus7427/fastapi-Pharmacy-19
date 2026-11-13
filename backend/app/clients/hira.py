@@ -8,12 +8,15 @@ from .base import PublicApiError, fetch, json_items
 
 def _to_pharmacy(item: dict) -> Pharmacy:
     est = str(item.get("estbDd") or "")
+    tel = str(item.get("telno") or "")  # 숫자로 내려오거나 "5" 같은 깨진 값이 섞여 있다
+    if len(tel) < 7:
+        tel = ""
     dist = item.get("distance")
     return Pharmacy(
         id=str(item.get("ykiho", ""))[:40],
-        name=item.get("yadmNm", ""),
-        address=item.get("addr", ""),
-        tel=item.get("telno", "") or "",
+        name=str(item.get("yadmNm") or ""),
+        address=str(item.get("addr") or ""),
+        tel=tel,
         lat=float(item["YPos"]) if item.get("YPos") else None,
         lon=float(item["XPos"]) if item.get("XPos") else None,
         distance_m=round(float(dist)) if dist else None,

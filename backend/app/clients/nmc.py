@@ -74,3 +74,25 @@ async def nearby_today_hours(lat: float, lon: float, size: int = 100) -> list[di
         )
     )
     return items
+
+
+def from_location_item(item: dict) -> Pharmacy:
+    """위치 기반 조회(getParmacyLcinfoInqire) 결과 한 건을 Pharmacy 로. 오늘 운영시간만 들어 있다."""
+    s, c = item.get("startTime"), item.get("endTime")
+    has_hours = bool(s and c)
+    try:
+        distance_m = round(float(item["distance"]) * 1000)  # km 단위로 내려온다
+    except (KeyError, ValueError):
+        distance_m = None
+    return Pharmacy(
+        id=item.get("hpid", ""),
+        name=item.get("dutyName", ""),
+        address=item.get("dutyAddr", ""),
+        tel=item.get("dutyTel1", ""),
+        lat=float(item["latitude"]) if item.get("latitude") else None,
+        lon=float(item["longitude"]) if item.get("longitude") else None,
+        distance_m=distance_m,
+        today_hours=f"{_fmt(s)}~{_fmt(c)}" if has_hours else None,
+        is_open_now=open_state(s, c) if has_hours else None,
+        sources=["국립중앙의료원"],
+    )

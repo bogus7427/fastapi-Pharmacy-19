@@ -1,7 +1,8 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { errorMessage, nearbyPharmacies, searchPharmacies } from '../api/client.js'
 import imgNearby from '../assets/quick-nearby.svg'
 import PharmacyCard from './PharmacyCard.jsx'
+import PharmacyMap from './PharmacyMap.jsx'
 
 const SIDO = [
   '서울특별시', '부산광역시', '대구광역시', '인천광역시', '광주광역시', '대전광역시',
@@ -15,6 +16,7 @@ export default function PharmacyFinder({ drug, command }) {
   const [form, setForm] = useState({ sido: '서울특별시', sigungu: '', name: '' })
   const [state, setState] = useState({ status: 'idle', items: [], total: 0, page: 1, warnings: [], error: null, mode: null })
   const [openOnly, setOpenOnly] = useState(false)
+  const [center, setCenter] = useState(null) // 주변 검색의 기준 위치 (내 위치 또는 지도에서 누른 곳)
   const abortRef = useRef(null)
   const sectionRef = useRef(null)
   const handledRef = useRef(null)
@@ -33,18 +35,27 @@ export default function PharmacyFinder({ drug, command }) {
     }
   }
 
-  const searchRegion = (page = 1) =>
+  const searchRegion = (page = 1) => {
+    setCenter(null)
     run('region', (signal) => searchPharmacies({ ...form, page, size: PAGE_SIZE }, signal), page)
+  }
+
+  // 좌표 주변 1km 검색. 내 위치와 지도 클릭이 함께 쓴다.
+  const searchAt = (lat, lon, mode = 'picked') => {
+    if (lat < 33 || lat > 39 || lon < 124 || lon > 132) return // 국내 범위 밖
+    setCenter({ lat, lon })
+    run(mode, (signal) => nearbyPharmacies(lat, lon, 1000, signal))
+  }
 
   const searchNearby = () => {
-    if (!navigator.geolocation) {
-      setState((s) => ({ ...s, status: 'error', error: '이 브라우저는 위치 기능을 지원하지 않습니다. 지역으로 검색해 주세요.' }))
+    if (!navigator.geolocation || !window.isSecureContext) {
+      setState((s) => ({ ...s, status: 'error', error: '이 주소에서는 브라우저가 위치 기능을 허용하지 않습니다. 아래 지도에서 원하는 위치를 누르면 그 주변 약국을 찾습니다.' }))
       return
     }
     setState((s) => ({ ...s, status: 'loading', error: null }))
     navigator.geolocation.getCurrentPosition(
-      ({ coords }) => run('nearby', (signal) => nearbyPharmacies(coords.latitude, coords.longitude, 1000, signal)),
-      () => setState((s) => ({ ...s, status: 'error', error: '위치를 확인하지 못했습니다. 브라우저의 위치 권한을 허용하거나 지역으로 검색해 주세요.' })),
+      ({ coords }) => searchAt(coords.latitude, coords.longitude, 'nearby'),
+      () => setState((s) => ({ ...s, status: 'error', error: '위치를 확인하지 못했습니다. 위치 권한을 허용하거나, 아래 지도에서 원하는 위치를 눌러 주세요.' })),
       { timeout: 10000 },
     )
   }
@@ -69,8 +80,12 @@ export default function PharmacyFinder({ drug, command }) {
 
   // 영업 중인 약국을 위로 올린다. (같은 상태끼리는 원래 순서 = 거리순/이름순 유지)
   const order = (p) => (p.is_open_now === true ? 0 : p.is_open_now === false ? 2 : 1)
-  const sorted = [...state.items].sort((a, b) => order(a) - order(b))
-  const visible = openOnly ? sorted.filter((p) => p.is_open_now === true) : sorted
+  // 지도가 렌더링마다 다시 그려지지 않도록 목록을 고정한다
+  const visible = useMemo(() => {
+    if (state.status !== 'done') return []
+    const sorted = [...state.items].sort((a, b) => order(a) - order(b))
+    return openOnly ? sorted.filter((p) => p.is_open_now === true) : sorted
+  }, [state.items, state.status, openOnly])
   const lastPage = Math.max(1, Math.ceil(state.total / PAGE_SIZE))
 
   return (
@@ -118,13 +133,15 @@ export default function PharmacyFinder({ drug, command }) {
         지금 영업 중인 약국만 보기
       </label>
 
+      <PharmacyMap items={visible} center={center} onPick={searchAt} />
+
       {state.status === 'idle' && (
         <div className="empty-cta">
           <img src={imgNearby} alt="" width="56" height="56" />
           <p>
             <strong>가까운 약국을 찾아볼까요?</strong>
             <br />
-            <span className="muted">「내 위치로 찾기」를 누르거나 지역을 입력해 검색하세요.</span>
+            <span className="muted">「내 위치로 찾기」를 누르거나, 지역을 입력하거나, 지도에서 위치를 눌러 검색하세요.</span>
           </p>
         </div>
       )}
@@ -141,7 +158,7 @@ export default function PharmacyFinder({ drug, command }) {
       {state.status === 'done' && state.items.length > 0 && (
         <>
           <p className="muted">
-            {state.mode === 'nearby' ? '내 주변 1km' : '검색 결과'} {state.total.toLocaleString('ko-KR')}곳
+            {state.mode === 'nearby' ? '내 주변 1km' : state.mode === 'picked' ? '선택한 위치 주변 1km' : '검색 결과'} {state.total.toLocaleString('ko-KR')}곳
             {openOnly && ` · 이 중 지금 영업 중 ${visible.length}곳 표시`}
           </p>
           {visible.length === 0 && (

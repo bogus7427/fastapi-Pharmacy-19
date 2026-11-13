@@ -353,3 +353,8 @@ a.hero-cta { display: inline-flex; align-items: center; text-decoration: none; f
   .er-map { height: 360px; }
   .er-list { max-height: none; overflow: visible; }
 }
+
+/* ---------- 약국 지도 (응급실 지도와 같은 구성) ---------- */
+.pharmacy-map-wrap { display: grid; gap: 8px; }
+.pharmacy-map { height: 400px; }
+@media (max-width: 820px) { .pharmacy-map { height: 320px; } }
