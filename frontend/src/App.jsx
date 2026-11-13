@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import { errorMessage, recordDrugView, searchDrugs } from './api/client.js'
 import DrugCard from './components/DrugCard.jsx'
 import DrugDetail from './components/DrugDetail.jsx'
+import EmergencyContacts from './components/EmergencyContacts.jsx'
 import Hero from './components/Hero.jsx'
 import PharmacyFinder from './components/PharmacyFinder.jsx'
 import PhotoBanner from './components/PhotoBanner.jsx'
@@ -64,6 +65,7 @@ export default function App() {
           />
           <DrugDetail drug={detail} />
           <PharmacyFinder key={detail.item_seq} drug={detail} />
+          <EmergencyContacts />
           <Footer />
         </main>
       </div>
@@ -116,6 +118,7 @@ export default function App() {
           position="center 30%"
         />
         <PharmacyFinder command={command} />
+        <EmergencyContacts />
         <Footer />
       </main>
     </div>

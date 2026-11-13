@@ -284,3 +284,23 @@ details summary { cursor: pointer; color: var(--muted); font-size: 0.92rem; }
   .photo-banner-text { padding: 16px; }
 }
 @media (prefers-reduced-motion: reduce) { .photo-banner img { transition: none; } .photo-banner:hover img { transform: none; } }
+
+/* ---------- 응급 연락처 ---------- */
+.emergency-head { border-left-color: #ff6b5e; }
+.emergency-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 10px; }
+.emergency {
+  height: 100%; display: grid; gap: 2px; align-content: start; padding: 14px 16px; text-decoration: none;
+  background: var(--surface); color: var(--text); border: 1px solid var(--line); border-top: 4px solid var(--brand);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.emergency:hover, .emergency:focus-visible { transform: translateY(-3px); box-shadow: 0 10px 22px rgb(0 0 0 / 0.12); }
+.emergency:active { transform: scale(0.98); }
+.emergency-tel { font-size: 1.7rem; font-weight: 800; line-height: 1.15; font-variant-numeric: tabular-nums; color: var(--ok-text); }
+.emergency-name { font-weight: 700; }
+.emergency-desc { font-size: 0.88rem; color: var(--muted); word-break: keep-all; }
+.emergency-urgent { background: var(--danger-bg); border-color: transparent; border-top-color: #ff6b5e; }
+.emergency-urgent .emergency-tel { color: var(--danger-text); font-size: 2.2rem; }
+.emergency-urgent .emergency-desc { color: var(--text); }
+.emergency-er { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; justify-content: space-between; padding: 14px 16px; background: var(--surface); border: 1px solid var(--line); }
+.emergency-er > div { flex: 1 1 260px; display: grid; gap: 2px; word-break: keep-all; }
+@media (prefers-reduced-motion: reduce) { .emergency { transition: none; } .emergency:hover { transform: none; } }
