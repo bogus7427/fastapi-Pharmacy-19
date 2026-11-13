@@ -36,4 +36,14 @@ npm run dev
 docker compose up -d --build   # http://localhost (80 포트)
 ```
 
+## 재배포 (EC2)
+
+PC 에서 `git push` 한 뒤 서버에서 스크립트를 실행한다.
+
+```bash
+ssh -i <키.pem> ubuntu@<서버IP> "~/fastapi-Pharmacy-19/deploy.sh"
+```
+
+최신 코드 받기 → 이미지 빌드 → 컨테이너 교체 → 응답 확인 → 안 쓰는 이미지 정리 순으로 진행한다.
+
 인증키는 이미지에 들어가지 않고 `backend/.env` 에서 실행 시 주입된다. 후기 DB 는 `pharmacy-data` 볼륨에 보관된다.
