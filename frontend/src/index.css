@@ -1,0 +1,264 @@
+:root {
+  --bg: #f6f8f7;
+  --surface: #ffffff;
+  --text: #1c2522;
+  --muted: #5f6f69;
+  --line: #dde4e1;
+  --accent: #007f87;
+  --brand: #00a4ad;
+  --brand-deep: #006d75;
+  --accent-text: #ffffff;
+  --warn-bg: #fff6df;
+  --warn-text: #6b4a00;
+  --danger-bg: #fdeceb;
+  --danger-text: #9b1c16;
+  --ok-bg: #e0f5f6;
+  --ok-text: #00565c;
+  font-family: 'Pretendard', 'Malgun Gothic', system-ui, sans-serif;
+  line-height: 1.6;
+  color: var(--text);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #131917;
+    --surface: #1c2422;
+    --text: #e8eeeb;
+    --muted: #9aaaa4;
+    --line: #2e3a36;
+    --accent: #35c6ce;
+    --brand: #0b7d84;
+    --brand-deep: #06454a;
+    --accent-text: #08231a;
+    --warn-bg: #3a2f10;
+    --warn-text: #f3d68a;
+    --danger-bg: #40201e;
+    --danger-text: #ffb4ad;
+    --ok-bg: #0f3b3e;
+    --ok-text: #8fe3e8;
+  }
+}
+
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); }
+h1, h2, h3, p { margin: 0; }
+h1 { font-size: 1.75rem; }
+h2 { font-size: 1.2rem; }
+h3 { font-size: 1.05rem; }
+ul { list-style: none; margin: 0; padding: 0; }
+
+.container { max-width: 960px; margin: 0 auto; padding: 24px 16px 48px; display: grid; gap: 20px; }
+.muted { color: var(--muted); font-size: 0.92rem; }
+
+input, select, button, .btn {
+  font: inherit; padding: 10px 14px; border-radius: 0; border: 1px solid var(--line);
+  background: var(--surface); color: var(--text); min-height: 44px;
+}
+button, .btn {
+  background: var(--accent); color: var(--accent-text); border-color: var(--accent);
+  cursor: pointer; text-decoration: none; display: inline-flex; align-items: center; font-weight: 600;
+}
+button:disabled { opacity: 0.5; cursor: not-allowed; }
+.btn-ghost, button.btn-ghost { background: transparent; color: var(--accent); }
+:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+
+.searchbar { display: flex; gap: 8px; }
+.searchbar input { flex: 1; min-width: 0; }
+
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: 0; padding: 16px; }
+.error, .warn, .info { padding: 12px 14px; border-radius: 0; font-size: 0.95rem; }
+.error { background: var(--danger-bg); color: var(--danger-text); }
+.warn { background: var(--warn-bg); color: var(--warn-text); }
+.info { background: var(--ok-bg); color: var(--ok-text); }
+
+
+.drug-detail { display: grid; gap: 16px; }
+.drug-head { display: flex; gap: 12px; align-items: center; }
+.drug-head img { width: 96px; height: 64px; object-fit: cover; border-radius: 0; }
+.drug-detail dl { margin: 0; display: grid; gap: 14px; }
+.section-text dt { font-weight: 700; margin-bottom: 2px; }
+.section-text dd { margin: 0; white-space: pre-line; overflow-wrap: anywhere; }
+.section-warn { background: var(--danger-bg); color: var(--danger-text); padding: 12px; border-radius: 0; }
+
+.price { display: flex; gap: 12px; align-items: baseline; padding: 12px 14px; border-radius: 0; background: var(--ok-bg); color: var(--ok-text); }
+.price strong { font-size: 1.3rem; font-variant-numeric: tabular-nums; }
+.price-label { font-weight: 700; }
+.price-none { display: grid; gap: 4px; background: var(--bg); color: var(--text); border: 1px dashed var(--line); }
+
+
+.finder-form { display: flex; flex-wrap: wrap; gap: 8px; }
+.finder-form input { flex: 1; min-width: 140px; }
+.pharmacy-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 420px), 1fr)); gap: 12px; align-items: start; }
+.pharmacy { display: grid; gap: 6px; }
+.pharmacy-head { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px; }
+.badges, .actions { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+.actions { margin-top: 6px; }
+.badge { font-size: 0.8rem; padding: 2px 8px; border-radius: 2px; border: 1px solid var(--line); color: var(--muted); }
+.badge-open, .badge-ok { background: var(--ok-bg); color: var(--ok-text); border-color: transparent; }
+.badge-closed { background: var(--danger-bg); color: var(--danger-text); border-color: transparent; }
+details summary { cursor: pointer; color: var(--muted); font-size: 0.92rem; }
+.hours { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 2px 12px; margin-top: 6px; font-variant-numeric: tabular-nums; }
+.hours span { display: inline-block; width: 3.5em; color: var(--muted); }
+.pager { display: flex; gap: 12px; align-items: center; justify-content: center; }
+
+@media (max-width: 720px) {
+    .finder-form > * { flex: 1 1 100%; }
+}
+
+/* ---------- Hero ---------- */
+.hero {
+  background: linear-gradient(120deg, var(--brand) 0%, var(--brand-deep) 100%);
+  color: #fff; padding: 48px 16px 56px; overflow: hidden;
+}
+.hero-inner > * { min-width: 0; }
+.hero-inner { max-width: 928px; margin: 0 auto; display: grid; gap: 20px; }
+.hero-top { display: grid; grid-template-columns: 1.15fr 1fr; gap: 24px; align-items: center; }
+.hero-copy { display: grid; gap: 12px; }
+.hero-eyebrow { font-weight: 700; letter-spacing: 0.04em; display: flex; align-items: center; gap: 8px; }
+.hero-eyebrow::before { /* 약국 십자 마크 */
+  content: ''; width: 18px; height: 18px; flex: none;
+  background: linear-gradient(#fff, #fff) center / 34% 100% no-repeat, linear-gradient(#fff, #fff) center / 100% 34% no-repeat;
+}
+.hero h1 { font-size: clamp(1.6rem, 4.2vw, 2.4rem); line-height: 1.25; text-wrap: balance; }
+.hero h1, .hero-sub { word-break: keep-all; }
+.hero-sub { opacity: 0.92; }
+.hero-art { width: 100%; height: auto; animation: rise 0.8s 0.1s cubic-bezier(0.2, 0.7, 0.2, 1) both, hero-float 7s 0.9s ease-in-out infinite; }
+.hero-eyebrow, .hero h1, .hero-sub, .hero .searchbar { animation: rise 0.6s cubic-bezier(0.2, 0.7, 0.2, 1) both; }
+.hero h1 { animation-delay: 0.06s; }
+.hero-sub { animation-delay: 0.12s; }
+.hero .searchbar { animation-delay: 0.18s; gap: 0; box-shadow: 0 8px 24px rgb(0 0 0 / 0.18); }
+.hero .searchbar input { border: 0; min-height: 56px; font-size: 1.05rem; background: #fff; color: #1c2522; }
+.hero .searchbar button { min-height: 56px; padding-inline: 28px; background: #0b2e31; border-color: #0b2e31; color: #fff; transition: background-color 0.2s, padding 0.2s; }
+.hero .searchbar button:not(:disabled):hover { background: #ff6b5e; border-color: #ff6b5e; color: #2a0a07; padding-inline: 34px; }
+.hero .searchbar button:not(:disabled):active { transform: scale(0.97); }
+.hero .searchbar button:disabled { opacity: 1; color: rgb(255 255 255 / 0.6); }
+.hero :focus-visible { outline-color: #fff; }
+
+/* ---------- 바로가기 버튼: 각진 타일 + 메디컬 이미지 ---------- */
+.quick-list { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-top: 10px; }
+.quick-list li { animation: rise 0.55s cubic-bezier(0.2, 0.7, 0.2, 1) both; animation-delay: calc(0.28s + var(--i) * 0.09s); }
+.quick {
+  width: 100%; height: 100%; display: grid; grid-template-columns: 1fr auto; align-items: center; column-gap: 8px;
+  text-align: left; padding: 12px 16px; border-radius: 0; border: 0; background: #fff; color: #0b2e31;
+  position: relative; overflow: hidden; box-shadow: 0 4px 14px rgb(0 0 0 / 0.12);
+  transition: transform 0.22s cubic-bezier(0.2, 0.8, 0.2, 1.2), box-shadow 0.22s;
+}
+.quick::after { /* 호버 시 왼쪽에서 차오르는 하단 바 */
+  content: ''; position: absolute; left: 0; right: 0; bottom: 0; height: 4px; background: #ff6b5e;
+  transform: scaleX(0); transform-origin: left; transition: transform 0.3s ease;
+}
+.quick:hover, .quick:focus-visible { transform: translateY(-6px); box-shadow: 0 16px 30px rgb(0 0 0 / 0.25); }
+.quick:hover::after, .quick:focus-visible::after, .quick-on::after { transform: scaleX(1); }
+.quick:active { transform: translateY(-1px) scale(0.97); transition-duration: 0.08s; }
+.quick-label { font-weight: 700; font-size: 1.02rem; }
+.quick-img { width: 44px; height: 44px; transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1.4); }
+.quick:hover .quick-img { transform: scale(1.18) rotate(-6deg); }
+.quick-on { background: #0b2e31; color: #fff; }
+
+/* ---------- 후기 · 보유 약 제보 ---------- */
+.reviews { display: grid; gap: 12px; margin-top: 8px; padding-top: 12px; border-top: 1px solid var(--line); }
+.review-summary { display: flex; flex-wrap: wrap; gap: 6px; }
+.review-list { display: grid; gap: 8px; }
+.review { display: grid; gap: 2px; padding: 10px 12px; background: var(--bg); border-left: 4px solid var(--line); }
+.review.has { border-left-color: var(--brand); }
+.review.none { border-left-color: #ff6b5e; }
+.review-head { display: flex; flex-wrap: wrap; gap: 6px 10px; align-items: center; }
+.review-head strong { overflow-wrap: anywhere; }
+.review p { overflow-wrap: anywhere; white-space: pre-line; }
+.review-form { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+.review-form .wide { grid-column: 1 / -1; }
+.review-form textarea { font: inherit; padding: 10px 14px; border: 1px solid var(--line); background: var(--surface); color: var(--text); min-height: 72px; resize: vertical; }
+.review-form label { display: grid; gap: 4px; font-size: 0.88rem; color: var(--muted); }
+.link-btn { background: none; border: 0; color: var(--muted); min-height: 0; padding: 0; font-weight: 400; font-size: 0.85rem; text-decoration: underline; }
+.badge-none { background: var(--danger-bg); color: var(--danger-text); border-color: transparent; }
+
+.check { display: inline-flex; gap: 8px; align-items: center; font-size: 0.95rem; cursor: pointer; }
+.check input { min-height: 0; width: 18px; height: 18px; padding: 0; accent-color: var(--accent); }
+.card.pharmacy { transition: transform 0.2s, box-shadow 0.2s; }
+.card.pharmacy:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgb(0 0 0 / 0.08); }
+.btn { transition: transform 0.15s; }
+.btn:hover { transform: translateY(-1px); }
+.btn:active { transform: scale(0.97); }
+
+@keyframes rise { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: none; } }
+@keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.14); } }
+@keyframes hero-float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+
+@media (max-width: 720px) {
+  .hero { padding: 32px 16px 40px; }
+  .hero-top { grid-template-columns: 1fr; }
+  .hero-art { display: none; }
+  .quick-list { grid-template-columns: repeat(2, 1fr); }
+  .hero .searchbar { flex-direction: column; }
+  .hero .searchbar button { justify-content: center; }
+}
+/* ---------- 공통 섹션 ---------- */
+.section { display: grid; gap: 12px; min-width: 0; scroll-margin-top: 16px; }
+.section-head { display: grid; gap: 2px; border-left: 4px solid var(--brand); padding-left: 12px; }
+.section-head h2 { font-size: 1.3rem; }
+.hero-label { font-size: 1rem; font-weight: 700; }
+.hero-cta {
+  justify-self: start; gap: 10px; margin-top: 4px; background: #fff; color: #0b2e31; border: 0; padding: 10px 18px 10px 12px;
+  box-shadow: 0 4px 14px rgb(0 0 0 / 0.15); transition: transform 0.2s, box-shadow 0.2s;
+  animation: rise 0.6s 0.16s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+.hero-cta img { animation: pulse 2.4s ease-in-out infinite; }
+.hero-cta:hover { transform: translateY(-3px); box-shadow: 0 12px 24px rgb(0 0 0 / 0.25); }
+.hero-cta:active { transform: scale(0.97); }
+.topbar { background: var(--surface); border-bottom: 1px solid var(--line); position: sticky; top: 0; z-index: 5; }
+.topbar-inner { max-width: 960px; margin: 0 auto; padding: 8px 16px; display: flex; align-items: center; gap: 12px; }
+.topbar-title { font-weight: 700; }
+
+/* ---------- 의약품 카드 / 그리드 / 캐러셀 ---------- */
+.drug-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 14px; }
+.drug-card {
+  width: 100%; height: 100%; display: grid; grid-template-rows: auto 1fr; align-items: start; padding: 0; text-align: left;
+  background: var(--surface); color: var(--text); border: 1px solid var(--line); font-weight: 400; overflow: hidden;
+  transition: transform 0.22s cubic-bezier(0.2, 0.8, 0.2, 1.2), box-shadow 0.22s, border-color 0.22s;
+}
+.drug-card:hover, .drug-card:focus-visible { transform: translateY(-6px); box-shadow: 0 14px 28px rgb(0 0 0 / 0.16); border-color: var(--brand); }
+.drug-card-media { position: relative; display: block; aspect-ratio: 16 / 10; background: var(--ok-bg); overflow: hidden; }
+.drug-card-media img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s ease; }
+.drug-card-media img.is-placeholder { object-fit: contain; padding: 22px; }
+.drug-card:hover .drug-card-media img { transform: scale(1.07); }
+.drug-card-rank {
+  position: absolute; left: 0; bottom: 0; min-width: 44px; padding: 0 10px; background: #0b2e31; color: #fff;
+  font-size: 1.9rem; font-weight: 800; line-height: 1.35; font-variant-numeric: tabular-nums; text-align: center;
+}
+.drug-card-body { display: grid; gap: 2px; padding: 12px; min-width: 0; }
+.drug-card-name { font-weight: 700; overflow-wrap: anywhere; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.drug-card-desc { font-size: 0.86rem; color: var(--muted); display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; margin-top: 4px; }
+.carousel { width: 100%; padding: 8px 0 14px; }
+.carousel .carousel-slide { width: 210px; height: auto; }
+.carousel .swiper-button-prev, .carousel .swiper-button-next {
+  width: 44px; height: 44px; margin-top: -22px; background: #0b2e31; color: #fff; transition: background-color 0.2s, transform 0.2s;
+}
+.carousel .swiper-button-prev:hover, .carousel .swiper-button-next:hover { background: #ff6b5e; transform: scale(1.08); }
+.carousel .swiper-button-prev svg, .carousel .swiper-button-next svg { width: 16px; height: 16px; }
+.carousel .swiper-button-prev::after, .carousel .swiper-button-next::after { font-size: 16px; font-weight: 700; }
+.carousel .swiper-button-disabled { opacity: 0; pointer-events: none; }
+.carousel-skeleton { display: flex; gap: 14px; overflow: hidden; }
+.carousel-skeleton span { flex: 0 0 210px; height: 230px; background: var(--line); animation: pulse-fade 1.2s ease-in-out infinite; }
+
+/* ---------- 안전 복용 가이드 ---------- */
+.drug-head h1 { font-size: 1.5rem; overflow-wrap: anywhere; }
+.guide { display: grid; gap: 10px; }
+.guide-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 10px; }
+.guide-group { padding: 12px; border-top: 4px solid; background: var(--bg); display: grid; gap: 8px; align-content: start; }
+.guide-title { display: flex; align-items: center; gap: 6px; font-weight: 700; }
+.guide-group ul { display: flex; flex-wrap: wrap; gap: 6px; }
+.guide-group li { padding: 4px 10px; font-size: 0.92rem; font-weight: 600; background: var(--surface); border: 1px solid currentColor; overflow-wrap: anywhere; }
+.guide-how { border-color: var(--brand); color: var(--ok-text); }
+.guide-care { border-color: #ff6b5e; color: var(--danger-text); }
+.guide-keep { border-color: var(--muted); color: var(--text); }
+
+/* ---------- 약국 섹션 ---------- */
+.empty-cta { display: flex; align-items: center; gap: 16px; padding: 20px; background: var(--surface); border: 1px dashed var(--line); }
+.badge-night { background: #0b2e31; color: #fff; border-color: transparent; }
+.badge-holiday { background: var(--warn-bg); color: var(--warn-text); border-color: transparent; }
+@keyframes pulse-fade { 0%, 100% { opacity: 0.5; } 50% { opacity: 1; } }
+
+/* 움직임 줄이기 설정 사용자: 애니메이션 끔 */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+}

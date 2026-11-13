@@ -1,0 +1,23 @@
+# 실행:  docker compose up -d --build
+# 밖으로 여는 포트는 80 하나뿐이다. 백엔드(8010)는 컨테이너끼리만 통신한다.
+services:
+  backend:
+    build: ./backend
+    env_file: ./backend/.env        # 인증키. 이미지에 넣지 않고 실행할 때만 주입한다
+    volumes:
+      - pharmacy-data:/app/data     # 후기·조회수 DB. 재배포해도 유지된다
+    restart: unless-stopped
+    mem_limit: 400m
+
+  web:
+    build: ./frontend
+    ports:
+      - "80:80"
+    depends_on:
+      backend:
+        condition: service_healthy
+    restart: unless-stopped
+    mem_limit: 100m
+
+volumes:
+  pharmacy-data:
