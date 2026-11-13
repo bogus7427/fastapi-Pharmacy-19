@@ -4,7 +4,10 @@ import DrugCard from './components/DrugCard.jsx'
 import DrugDetail from './components/DrugDetail.jsx'
 import Hero from './components/Hero.jsx'
 import PharmacyFinder from './components/PharmacyFinder.jsx'
+import PhotoBanner from './components/PhotoBanner.jsx'
 import PopularCarousel from './components/PopularCarousel.jsx'
+import photoDetail from './assets/photos/detail.jpg'
+import photoPharmacy from './assets/photos/pharmacy.jpg'
 
 export default function App() {
   const [search, setSearch] = useState({ status: 'idle', result: null, error: null, label: '', symptom: null })
@@ -53,6 +56,12 @@ export default function App() {
           </div>
         </header>
         <main className="container">
+          <PhotoBanner
+            image={photoDetail}
+            eyebrow="의약품 상세"
+            title="복용 전에 꼭 확인하세요"
+            sub="효능, 용법, 주의사항을 한 화면에서 봅니다."
+          />
           <DrugDetail drug={detail} />
           <PharmacyFinder key={detail.item_seq} drug={detail} />
           <Footer />
@@ -99,6 +108,13 @@ export default function App() {
         )}
 
         <PopularCarousel onOpen={openDetail} />
+        <PhotoBanner
+          image={photoPharmacy}
+          eyebrow="전국 약국 검색"
+          title="지금 문 연 약국을 찾아보세요"
+          sub="운영시간과 연락처, 이용자 후기를 함께 확인할 수 있습니다."
+          position="center 30%"
+        />
         <PharmacyFinder command={command} />
         <Footer />
       </main>
@@ -109,7 +125,7 @@ export default function App() {
 function Footer() {
   return (
     <footer className="muted">
-      출처: 식품의약품안전처 · 국립중앙의료원 · 건강보험심사평가원 · 행정안전부 (공공데이터포털). 이 정보는 참고용이며 복용 전
+      출처: 식품의약품안전처 · 국립중앙의료원 · 건강보험심사평가원 · 행정안전부 (공공데이터포털) · 사진: Pixabay. 이 정보는 참고용이며 복용 전
       의사·약사와 상담하세요.
     </footer>
   )

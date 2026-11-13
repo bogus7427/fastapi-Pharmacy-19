@@ -1,4 +1,4 @@
-import heroArt from '../assets/hero-medical.svg'
+import heroPhoto from '../assets/photos/hero-pills.jpg'
 import imgNearby from '../assets/quick-nearby.svg'
 import SearchBar from './SearchBar.jsx'
 import SymptomIcon from './SymptomIcon.jsx'
@@ -15,11 +15,12 @@ export const SYMPTOMS = [
   { icon: 'vitamin', label: '영양제', term: '비타민' },
 ]
 
-// 메인 상단: 메디컬 일러스트 + 약 검색창 + 증상별 퀵 버튼.
+// 메인 상단: 메디컬 사진 배경(Pixabay) + 약 검색창 + 증상별 퀵 버튼.
 // 타일은 순서대로 떠오르며 등장하고, 호버 시 들리면서 아이콘이 커지고 하단 바가 차오른다. (CSS: .quick)
 export default function Hero({ onSearch, onSymptom, onNearby, loading, activeSymptom }) {
   return (
     <section className="hero">
+      <img className="hero-photo" src={heroPhoto} alt="" width="1280" height="853" fetchPriority="high" />
       <div className="hero-inner">
         <div className="hero-top">
           <div className="hero-copy">
@@ -33,7 +34,6 @@ export default function Hero({ onSearch, onSymptom, onNearby, loading, activeSym
               내 주변 열린 약국 보기
             </button>
           </div>
-          <img className="hero-art" src={heroArt} alt="" width="480" height="360" />
         </div>
 
         <SearchBar onSearch={onSearch} loading={loading} />
