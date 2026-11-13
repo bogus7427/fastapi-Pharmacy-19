@@ -33,17 +33,6 @@ export default function EmergencyContacts() {
         ))}
       </ul>
 
-      <div className="emergency-er">
-        <div>
-          <strong>가까운 응급실 찾기</strong>
-          <p className="muted">
-            응급실 위치와 진료 가능 여부는 중앙응급의료센터 응급의료포털(E-Gen)에서 확인하거나 119에 문의하세요.
-          </p>
-        </div>
-        <a className="btn" href="https://www.e-gen.or.kr/egen/search_emergency_room.do" target="_blank" rel="noreferrer">
-          응급실 찾기 (새 창)
-        </a>
-      </div>
     </section>
   )
 }

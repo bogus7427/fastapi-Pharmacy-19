@@ -54,3 +54,28 @@ class DrugList(BaseModel):
     page: int
     source: str  # "e약은요" | "sample"
     notice: str | None = None
+
+
+class EmergencyRoom(BaseModel):
+    id: str
+    name: str
+    address: str = ""
+    tel: str = ""  # 응급실 직통 번호 (없으면 대표 번호)
+    er_class: str = ""  # 권역응급의료센터 / 지역응급의료센터 / 지역응급의료기관 / 응급실운영신고기관
+    lat: float
+    lon: float
+    distance_km: float | None = None
+    has_realtime: bool = False  # 실시간 병상 정보를 제공하는 기관인지
+    beds_available: int | None = None  # 응급실 가용 병상. 음수면 수용 한계를 넘은 상태
+    beds_total: int | None = None
+    updated_at: str | None = None  # 병상 정보 입력 시각 (KST)
+    ct: bool | None = None
+    mri: bool | None = None
+    ventilator: bool | None = None
+    ambulance: bool | None = None
+
+
+class EmergencyList(BaseModel):
+    items: list[EmergencyRoom]
+    total: int
+    warnings: list[str] = []

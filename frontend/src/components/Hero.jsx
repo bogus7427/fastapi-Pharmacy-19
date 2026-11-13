@@ -29,10 +29,16 @@ export default function Hero({ onSearch, onSymptom, onNearby, loading, activeSym
             <p className="hero-sub">
               약 이름이나 증상으로 복용 정보를 확인하고, 가까운 약국의 운영시간과 연락처를 한 번에 봅니다.
             </p>
-            <button type="button" className="hero-cta" onClick={onNearby}>
-              <img src={imgNearby} alt="" width="28" height="28" />
-              내 주변 열린 약국 보기
-            </button>
+            <div className="hero-actions">
+              <button type="button" className="hero-cta" onClick={onNearby}>
+                <img src={imgNearby} alt="" width="28" height="28" />
+                내 주변 열린 약국 보기
+              </button>
+              <a className="hero-cta hero-cta-er" href="#er-map">
+                <span className="hero-cta-cross" aria-hidden="true" />
+                응급실 찾기
+              </a>
+            </div>
           </div>
         </div>
 

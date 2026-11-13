@@ -304,3 +304,52 @@ details summary { cursor: pointer; color: var(--muted); font-size: 0.92rem; }
 .emergency-er { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; justify-content: space-between; padding: 14px 16px; background: var(--surface); border: 1px solid var(--line); }
 .emergency-er > div { flex: 1 1 260px; display: grid; gap: 2px; word-break: keep-all; }
 @media (prefers-reduced-motion: reduce) { .emergency { transition: none; } .emergency:hover { transform: none; } }
+
+/* ---------- 응급실 지도 ---------- */
+.hero-actions { display: flex; flex-wrap: wrap; gap: 10px; }
+a.hero-cta { display: inline-flex; align-items: center; text-decoration: none; font-weight: 700; min-height: 44px; }
+.hero-cta-er { background: #ff6b5e; color: #2a0a07; padding-left: 14px; }
+.hero-cta-cross { width: 20px; height: 20px; flex: none; background: linear-gradient(#2a0a07, #2a0a07) center / 34% 100% no-repeat, linear-gradient(#2a0a07, #2a0a07) center / 100% 34% no-repeat; }
+#er-map { scroll-margin-top: 16px; }
+.er-toolbar { display: flex; flex-wrap: wrap; gap: 8px 20px; align-items: center; justify-content: space-between; }
+.er-legend { display: flex; flex-wrap: wrap; gap: 6px 14px; font-size: 0.88rem; color: var(--muted); }
+.er-legend li { display: inline-flex; align-items: center; gap: 6px; }
+.er-legend .er-marker { width: 24px; height: 24px; font-size: 0.75rem; box-shadow: none; }
+.er-layout { display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr); gap: 12px; align-items: start; }
+.er-map { height: 520px; border: 1px solid var(--line); background: var(--surface); z-index: 0; }
+.er-side { display: grid; gap: 8px; min-width: 0; }
+.er-list { display: grid; gap: 8px; max-height: 486px; overflow-y: auto; padding-right: 2px; }
+.er-item { background: var(--surface); border: 1px solid var(--line); border-left: 4px solid var(--line); display: grid; }
+.er-item-on { border-left-color: #ff6b5e; box-shadow: 0 6px 16px rgb(0 0 0 / 0.1); }
+.er-item-main { display: flex; gap: 12px; align-items: flex-start; text-align: left; width: 100%; padding: 12px; background: transparent; color: var(--text); border: 0; min-height: 0; font-weight: 400; }
+.er-item-main:hover { background: var(--bg); }
+.er-item-text { display: grid; gap: 1px; min-width: 0; }
+.er-item-text strong { overflow-wrap: anywhere; }
+.er-item-text .muted { font-size: 0.86rem; }
+.er-beds { font-weight: 700; font-size: 0.92rem; }
+.er-text-ok { color: var(--ok-text); }
+.er-text-full { color: var(--danger-text); }
+.er-text-unknown { color: var(--muted); font-weight: 400; }
+.er-item-actions { display: flex; flex-wrap: wrap; gap: 6px; padding: 0 12px 12px; }
+.er-item-actions .btn { min-height: 36px; padding: 6px 12px; font-size: 0.9rem; text-decoration: none; display: inline-flex; align-items: center; }
+.er-marker {
+  display: inline-grid; place-items: center; width: 34px; height: 34px; flex: none; font-weight: 800; font-size: 0.9rem;
+  font-variant-numeric: tabular-nums; color: #fff; border: 2px solid #fff; box-shadow: 0 2px 8px rgb(0 0 0 / 0.35);
+}
+.er-ok { background: #007f87; }
+.er-full { background: #c5281f; }
+.er-unknown { background: #6b7773; }
+.er-center { display: block; width: 18px; height: 18px; border-radius: 50%; background: #1d4ed8; border: 3px solid #fff; box-shadow: 0 0 0 2px #1d4ed8; }
+.er-popup { display: grid; gap: 4px; font-family: inherit; font-size: 0.92rem; min-width: 170px; }
+.er-popup strong { font-size: 1rem; }
+.er-popup-class { color: #5f6f69; font-size: 0.85rem; }
+.er-popup-beds { justify-self: start; padding: 2px 8px; color: #fff; font-weight: 700; }
+.er-popup a { color: #006d75; font-weight: 700; }
+.er-note { font-size: 0.86rem; }
+.leaflet-popup-content-wrapper, .leaflet-popup-tip { border-radius: 0; }
+.leaflet-container { font: inherit; }
+@media (max-width: 820px) {
+  .er-layout { grid-template-columns: 1fr; }
+  .er-map { height: 360px; }
+  .er-list { max-height: none; overflow: visible; }
+}

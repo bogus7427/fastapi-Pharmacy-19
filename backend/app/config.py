@@ -13,3 +13,4 @@ NMC_BASE = "http://apis.data.go.kr/B552657/ErmctInsttInfoInqireService"  # 국�
 HIRA_BASE = "http://apis.data.go.kr/B551182/pharmacyInfoService"  # 건강보험심사평가원
 MOIS_BASE = "https://apis.data.go.kr/1741000/pharmacies"  # 행정안전부
 DRUG_BASE = "http://apis.data.go.kr/1471000/DrbEasyDrugInfoService"  # 식약처 e약은요 (별도 활용신청 필요)
+ER_BASE = "http://apis.data.go.kr/B552657/ErmctInfoInqireService"  # 국립중앙의료원 응급의료기관

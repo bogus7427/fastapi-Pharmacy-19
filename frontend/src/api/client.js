@@ -28,3 +28,10 @@ export const searchPharmacies = (params, signal) =>
 
 export const nearbyPharmacies = (lat, lon, radius = 1000, signal) =>
   api.get('/pharmacies/nearby', { params: { lat, lon, radius }, signal }).then((r) => r.data)
+
+// 응급실: 시·도(시·군·구) 검색, 좌표 주변 검색
+export const searchEmergency = (params, signal) =>
+  api.get('/emergency', { params, signal }).then((r) => r.data)
+
+export const nearbyEmergency = (lat, lon, signal) =>
+  api.get('/emergency/nearby', { params: { lat, lon }, signal }).then((r) => r.data)
